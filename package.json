@@ -1,0 +1,9 @@
+{
+  "name": "quiz-telegram-bot",
+  "version": "1.0.0",
+  "description": "Telegram bot that will post quiz messages to channel and keep the scoreboard",
+  "main": "index.js",
+  "repository": "https://github.com/ereshidov/quiz-telegram-bot",
+  "author": "Reshidov Edem",
+  "license": "MIT"
+}
