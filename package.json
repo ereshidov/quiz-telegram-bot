@@ -5,5 +5,16 @@
   "main": "index.js",
   "repository": "https://github.com/ereshidov/quiz-telegram-bot",
   "author": "Reshidov Edem",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "telegraf": "^4.8.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
 }
