@@ -1,28 +1,11 @@
 name: Build and push docker image
 on:
-  workflow_call:
-    inputs:
-      build_kind:
-        type: string
-        required: true
-        description: Build type. Will be used in the name of docker-image.
-      build_name:
-        type: string
-        required: true
-        description: Name of the build, will be used in the name of container
-      # outputs:
-      #   docker-image:
-      #     description: Full name and tag of build docker image
-      #     value: ${{ jobs.build.outputs.docker_image }}
-      # secrets:
-      #   SA_BUILDER_PRIVATE_KEY:
-      #     description: Service key of Yandex Cloud profile
-      #     required: true
+  push:
+    branches:
+      - 'master'
 jobs:
   build:
     runs-on: ubuntu-latest
-    outputs:
-      docker_image: ${{ steps.check-image.outputs.docker_image }}
     steps:
       - uses: actions/checkout@v3
       - name: Yandex Cloud CR Login Action for GH Actions
@@ -31,11 +14,11 @@ jobs:
           yc-sa-json-credentials: ${{ secrets.SA_BUILDER_PRIVATE_KEY }}
       - name: Build, tag, and push image to Yandex Cloud Container Registry
         env:
-          CR_REPOSITORY: ${{ inputs.build_kind }}/${{ inputs.build_name }}/quiz
+          CR_REPOSITORY: release/release-0.1/quiz
           YC_REGISTRY_ID: ${{ secrets.YC_REGISTRY_ID }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          export IMAGE_URI="cr.yandex./$YC_REGISTRY_ID/$CR_REPOSITORY:$IMAGE_TAG"
+          export IMAGE_URI="cr.yandex/$YC_REGISTRY_ID/$CR_REPOSITORY:$IMAGE_TAG"
           docker build -t $IMAGE_URI .
           docker push $IMAGE_URI
 
