@@ -1,11 +1,14 @@
 const { Telegraf } = require("telegraf");
+const schedule = require('node-schedule');
 
+const { generateAndSendQuiz } = require('./bot/generateAndSendQuiz')
 const { config } = require("./config/config");
 
 const bot = new Telegraf(config.BOT_TOKEN);
 
-bot.hears("test", (ctx) => {
-  ctx.reply("Hey there");
-});
+schedule.scheduleJob('30 * * * * *', function() {
+  generateAndSendQuiz(bot)
+})
+
 
 bot.launch();

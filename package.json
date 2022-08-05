@@ -12,9 +12,11 @@
   },
   "dependencies": {
     "dotenv": "^16.0.1",
+    "node-schedule": "^2.1.0",
     "telegraf": "^4.8.6"
   },
   "devDependencies": {
+    "node-fetch": "v2",
     "nodemon": "^2.0.19"
   }
 }
