@@ -29,29 +29,11 @@ jobs:
         uses: yc-actions/yc-cr-login@v1.0.0
         with:
           yc-sa-json-credentials: ${{ secrets.SA_BUILDER_PRIVATE_KEY }}
-      - name: Compute image name and test if it already exists
-        id: check-image
-        env:
-          CR_REGISTRY: ${{ secrets.YC_REGISTRY_ID }}
-          CR_REPOSITORY: ${{ inputs.build_kind }}/${{ inputs.build_name }}/quiz-telegram
-          IMAGE_TAG: ${{ github.sha }}
-          run: |
-            export IMAGE_URI="cr.yandex/$CR_REGISTRY/$CR_REPOSITORY:$IMAGE_TAG"
-            echo "::set-output name=docker_image::$IMAGE_URI"
-            if docker manifest inspect "$IMAGE_URI" > /dev/null; then
-              echo "::set-output name=exists::true"
-              echo "Image already exists: $IMAGE_URI"
-            else
-              echo "::set-output name=exists::false"
-              echo "New image will be created"
-            fi
       - name: Build, tag, and push image to Yandex Cloud Container Registry
-        id: push
-        if: "!fromJson(steps.check-image.outputs.exists)"
         env:
           IMAGE_URI: ${{ steps.check-image.outputs.docker-image }}
         run: |
-          docker build -t $IMAGE_URI
+          docker build -t $IMAGE_URI .
           docker push $IMAGE_URI
 
 
