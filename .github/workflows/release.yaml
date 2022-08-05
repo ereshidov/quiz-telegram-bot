@@ -1,0 +1,13 @@
+name: Release
+on:
+  push:
+    branches:
+      - 'master'
+jobs:
+  build:
+    uses: ./.github/workflows/build.yaml
+    secrets:
+      SA_BUILDER_PRIVATE_KEY: ${{ secrets.SA_BUILDER_PRIVATE_KEY }}
+    with:
+      build_name: release-0.1
+      build_kind: releases
