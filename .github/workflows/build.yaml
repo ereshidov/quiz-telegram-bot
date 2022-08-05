@@ -10,10 +10,10 @@ on:
         type: string
         required: true
         description: Name of the build, will be used in the name of container
-      outputs:
-        docker-image:
-          description: Full name and tag of build docker image
-          value: ${{ jobs.build.outputs.docker_image }}
+      # outputs:
+      #   docker-image:
+      #     description: Full name and tag of build docker image
+      #     value: ${{ jobs.build.outputs.docker_image }}
       secrets:
         SA_BUILDER_PRIVATE_KEY:
           description: Service key of Yandex Cloud profile
@@ -31,8 +31,11 @@ jobs:
           yc-sa-json-credentials: ${{ secrets.SA_BUILDER_PRIVATE_KEY }}
       - name: Build, tag, and push image to Yandex Cloud Container Registry
         env:
-          IMAGE_URI: ${{ steps.check-image.outputs.docker-image }}
+          CR_REPOSITORY: ${{ inputs.build_kind }}/${{ inputs.build_name }}/quiz
+          YC_REGISTRY_ID: ${{ secrets.YC_REGISTRY_ID }}
+          IMAGE_TAG: ${{ github.sha }}
         run: |
+          export IMAGE_URI="cr.yandex./$YC_REGISTRY_ID/$CR_REPOSITORY:$IMAGE_TAG"
           docker build -t $IMAGE_URI .
           docker push $IMAGE_URI
 
