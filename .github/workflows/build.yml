@@ -1,0 +1,18 @@
+name: Push and Deploy Serverless function
+on: push
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - uses: goodsmileduck/yandex-serverless-action@v1
+      with:
+        token: ${{ secrets.YC_TOKEN }}
+        bucket: 'newfaceof-telegram'
+        function_id: 'd4eqv9hh0mu3i10na0ts'
+        runtime: 'node14'
+        memory: '256'
+        entrypoint: 'index.handler'
+        environment: DEBUG=True,COUNT=1
+        source: '.'

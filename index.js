@@ -11,4 +11,13 @@ schedule.scheduleJob('30 * * * * *', function() {
 })
 
 
-bot.launch();
+// bot.launch();
+
+module.exports.handler = async function (event, context) {
+  const message = JSON.parse(event.body);
+  await bot.handleUpdate(message);
+  return {
+      statusCode: 200,
+      body: '',
+  };
+};
