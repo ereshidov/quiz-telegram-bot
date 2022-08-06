@@ -13,7 +13,7 @@ jobs:
       with:
         token: ${{ secrets.YC_TOKEN }}
         bucket: 'newfaceof-telegram'
-        function_id: 'd4eqv9hh0mu3i10na0ts'
+        function_id: 'd4ejipcnc5l3j5uuujr5'
         runtime: 'nodejs14'
         memory: '256'
         entrypoint: 'index.handler'
