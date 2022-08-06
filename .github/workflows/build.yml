@@ -11,7 +11,7 @@ jobs:
         token: ${{ secrets.YC_TOKEN }}
         bucket: 'newfaceof-telegram'
         function_id: 'd4eqv9hh0mu3i10na0ts'
-        runtime: 'node14'
+        runtime: 'nodejs14'
         memory: '256'
         entrypoint: 'index.handler'
         environment: DEBUG=True,COUNT=1
