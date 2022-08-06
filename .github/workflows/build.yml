@@ -13,9 +13,9 @@ jobs:
       with:
         token: ${{ secrets.YC_TOKEN }}
         bucket: 'newfaceof-telegram'
-        function_id: 'd4ejipcnc5l3j5uuujr5'
+        function_id: 'd4en8jk0sdagi668nrqf'
         runtime: 'nodejs14'
         memory: '256'
         entrypoint: 'index.handler'
-        environment: DEBUG=True,COUNT=1
+        environment: BOT_TOKEN=$BOT_TOKEN,CHANNEL_ID=$CHANNEL_ID
         source: '.'
