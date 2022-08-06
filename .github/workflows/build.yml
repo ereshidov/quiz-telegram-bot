@@ -4,6 +4,9 @@ on: push
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+      CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
     steps:
     - uses: actions/checkout@master
     - uses: goodsmileduck/yandex-serverless-action@v1

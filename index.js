@@ -6,8 +6,12 @@ const { config } = require("./config/config");
 
 const bot = new Telegraf(config.BOT_TOKEN);
 
-schedule.scheduleJob('30 * * * * *', function() {
-  generateAndSendQuiz(bot)
+// schedule.scheduleJob('30 * * * * *', function() {
+//   generateAndSendQuiz(bot)
+// })
+
+bot.hears('test', (ctx) => {
+  ctx.reply('hi')
 })
 
 
