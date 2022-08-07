@@ -14,10 +14,7 @@ bot.hears('test', (ctx) => {
   ctx.reply('hi')
 })
 
-
-// bot.launch();
-
-module.exports.handler = async function (event, context) {
+module.exports.handler = async function (event, _context) {
   const message = JSON.parse(event.body);
   await bot.handleUpdate(message);
   return {

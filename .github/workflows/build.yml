@@ -8,14 +8,23 @@ jobs:
       BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
       CHANNEL_ID: ${{ secrets.CHANNEL_ID }}
     steps:
-    - uses: actions/checkout@master
-    - uses: goodsmileduck/yandex-serverless-action@v1
+    - name: Deploy Function
+      id: sls-func
+      uses: yc-actions/yc-sls-function@v2
       with:
-        token: ${{ secrets.YC_TOKEN }}
+        yc-sa-json-credentials: ${{ secrets.SA_BUILDER_PRIVATE_KEY }}
         bucket: 'newfaceof-telegram'
-        function_id: 'd4en8jk0sdagi668nrqf'
+        folder-id: 'b1gtgnddelbs2kd3so3t'
+        function-name: 'test-telegram-bot'
         runtime: 'nodejs14'
-        memory: '256'
+        memory: '256Mb'
         entrypoint: 'index.handler'
-        environment: BOT_TOKEN=$BOT_TOKEN,CHANNEL_ID=$CHANNEL_ID
-        source: '.'
+        environment: |
+          BOT_TOKEN=$BOT_TOKEN
+          CHANNEL_ID=$CHANNEL_ID
+        include: | 
+          ./
+          package.json
+        tags: |
+          ${{ GITHUB_SHA::6 }}
+          foo
