@@ -26,5 +26,5 @@ jobs:
           ./
           package.json
         tags: |
-          ${{ GITHUB_SHA::6 }}
+          ${{ github.sha }}
           foo
