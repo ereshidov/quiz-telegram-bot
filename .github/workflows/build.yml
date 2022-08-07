@@ -22,6 +22,3 @@ jobs:
         environment: |
           BOT_TOKEN=$BOT_TOKEN
           CHANNEL_ID=$CHANNEL_ID
-        tags: |
-          ${{ github.sha }}
-          foo
